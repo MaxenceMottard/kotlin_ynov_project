@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
-    var productList : List<Product> = listOf<Product>()
+    var productList : List<Product> = listOf()
     var adapter: HomeAdapter = HomeAdapter()
     private lateinit var recyclerView: RecyclerView
 
@@ -51,10 +51,9 @@ class HomeFragment : Fragment() {
 
         val apiHelper = ApiHelpers(context)
 
-        recyclerView = productRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = this.adapter
-        }
+        recyclerView = productRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
 
         apiHelper.getProducts(
             object : ApiRequestCallback<ApiResponse<List<Product>>>() {
@@ -66,6 +65,8 @@ class HomeFragment : Fragment() {
                             override fun run() {
                                 productList = result!!.data
                                 adapter.updateList(productList)
+                                val number = adapter.itemCount
+                                number.toString()
                             }
                         }
                     )

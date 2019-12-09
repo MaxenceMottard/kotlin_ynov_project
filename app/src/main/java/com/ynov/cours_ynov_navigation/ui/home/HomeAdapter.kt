@@ -30,6 +30,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ProductViewHolder>() {
 
     override fun getItemCount(): Int {
         Log.d("NUMBER", products.size.toString())
+        val number = products.size
         return products.size
     }
 
