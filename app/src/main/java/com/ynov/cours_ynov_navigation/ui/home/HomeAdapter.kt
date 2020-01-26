@@ -1,6 +1,5 @@
 package com.ynov.cours_ynov_navigation.ui.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,12 @@ class HomeAdapter(
 
     class ProductViewHolder(val productItem: View) : RecyclerView.ViewHolder(productItem) {
         val productName = productItem.productName
+
+        fun bind(product: Product, clickListener: (Product) -> Unit){
+            productName.text = product.name
+            itemView.setOnClickListener { clickListener(product) }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -30,24 +35,18 @@ class HomeAdapter(
         return ProductViewHolder(productItem = item)
     }
 
-    override fun getItemCount(): Int {
-        return products.size
-    }
-
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        var product: Product = products[position]
-
-        holder.productName.text = product.name
-
-        holder.productItem.setOnClickListener{
-            Log.d("ON_CLICK", product.name)
-        }
-    }
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) =
+        holder.bind(products[position], onClickListener)
 
     fun updateList(product: List<Product>) {
         products.clear()
         products.addAll(product)
         notifyDataSetChanged()
     }
+
+    override fun getItemCount(): Int {
+        return products.size
+    }
+
 
 }

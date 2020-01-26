@@ -11,15 +11,16 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_nav_gallery"
-            app:destination="@id/nav_gallery"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_nav_home_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.ynov.cours_ynov_navigation.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/productDetailFragment"
+        android:name="com.ynov.cours_ynov_navigation.ui.home.ProductDetailFragment"
+        android:label="ProductDetailFragment" >
+        <argument
+            android:name="product"
+            app:argType="com.ynov.cours_ynov.models.Product" />
+    </fragment>
 
 </navigation>

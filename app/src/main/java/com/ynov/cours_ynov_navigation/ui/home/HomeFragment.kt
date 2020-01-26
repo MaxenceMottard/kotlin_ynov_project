@@ -1,11 +1,13 @@
 package com.ynov.cours_ynov_navigation.ui.home
 
+import android.graphics.Path
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +23,7 @@ class HomeFragment : Fragment() {
 
 
     var productList : List<Product> = listOf()
-    var adapter: HomeAdapter = HomeAdapter(onClickListener = { product ->
+    var adapter: HomeAdapter = HomeAdapter(onClickListener = {product ->
         onProductClickListener(product)
     })
 
@@ -49,20 +51,15 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
 
 
-        Log.d("max", "onViewCreated")
-
         apiHelper.getProducts(
             object : ApiRequestCallback<ApiResponse<List<Product>>>() {
                 override fun onSuccess(result: ApiResponse<List<Product>>?) {
-                    Log.d("API_RESULT", "SUCCESS")
                     super.onSuccess(result)
-                    Log.d("max", "max")
 
                     activity?.runOnUiThread(
                         object : Runnable {
                             override fun run() {
                                 productList = result!!.data
-                                Log.d("maxence", result!!.toString())
                                 adapter.updateList(productList)
                                 val number = adapter.itemCount
                                 number.toString()
@@ -73,7 +70,6 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onError(error: ApiError?) {
-                    Log.d("API_RESULT", "ERROR")
                     super.onError(error)
                 }
             }
@@ -82,11 +78,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun onProductClickListener(product: Product) {
-        Log.d("CLICK", product.toString())
-    }
-
-    private fun nextPage(){
-        val action = HomeFragmentDirections.actionNavHomeToNavGallery()
+        val action = HomeFragmentDirections.actionNavHomeToProductDetailFragment(product)
         requireView().findNavController().navigate(action)
     }
+
 }
