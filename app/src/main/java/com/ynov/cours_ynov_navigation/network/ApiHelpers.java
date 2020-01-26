@@ -2,6 +2,7 @@ package com.ynov.cours_ynov_navigation.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,10 +22,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.Context.MODE_PRIVATE;
-
-/**
- * Created by Nicolas Churlet on 21/03/2018.
- */
 
 public class ApiHelpers {
 
@@ -96,6 +93,7 @@ public class ApiHelpers {
 
     // region Async methods
     public void getProducts(ApiRequestCallback<ApiResponse<List<Product>>> callback) {
+        Log.d("API", "FESF");
         (new ApiRequest<ApiResponse<List<Product>>>()).requestAsync(apiservice.getProducts(), callback);
     }
     // endregion Async methods

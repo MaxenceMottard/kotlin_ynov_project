@@ -12,15 +12,10 @@ public interface ShokoApiService {
 
     // region GETTER ALL
     // region Used
-    @GET("/products")
+    @GET("/api/products")
      Call<ApiResponse<List<Product>>> getProducts();
 
     // endregion Used
     // endregion GETTER ALL
 
-
-    // region PATCH
-//    @PATCH("/api/Reassort/{id}")
-//    Call<List<Reassort>> getReassortById(@Path("id") Integer id, Reassort reassort);
-    // endregion PATCH
 }

@@ -10,7 +10,9 @@ import com.ynov.cours_ynov.models.Product
 import com.ynov.cours_ynov_navigation.R
 import kotlinx.android.synthetic.main.product_recycler_view_item.view.*
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ProductViewHolder>() {
+class HomeAdapter(
+    private val onClickListener: (Product) -> Unit
+) : RecyclerView.Adapter<HomeAdapter.ProductViewHolder>() {
 
     private val products: MutableList<Product> = mutableListOf()
 
@@ -29,16 +31,17 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ProductViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        Log.d("NUMBER", products.size.toString())
-        val number = products.size
         return products.size
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         var product: Product = products[position]
-        Log.d("ITEM", product.toString())
 
         holder.productName.text = product.name
+
+        holder.productItem.setOnClickListener{
+            Log.d("ON_CLICK", product.name)
+        }
     }
 
     fun updateList(product: List<Product>) {
